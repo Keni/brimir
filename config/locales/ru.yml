@@ -1,6 +1,6 @@
 # author: https://github.com/lemial
 ru:
-  language_name: русский
+  language_name: Русский
 # layouts/application
   new_ticket: 'Новая заявка'
   inbox: 'Входящие'
@@ -12,6 +12,8 @@ ru:
   personal_settings: 'Личные настройки'
   sign_out: 'Выход'
   delete: 'Удалить'
+  close: 'Закрыть'
+  wait: 'Отложить'
 
 # devise/sessions/new
   sign_in: 'Войти'
@@ -32,6 +34,11 @@ ru:
   someone_requested_link: 'Кто-то, возможно вы сами, запросил ссылку на восстановление пароля, если это были вы - перейдите по ней:'
   ignore_if_not_requested: 'Если вы не запрашивали ссылку на восстановление пароля - просто игнорируйте это сообщение.'
   password_wont_change_without_opening_link: 'Ваш пароль не будет изменен пока вы не перейдете по этой ссылке или повторно не запросите восстановление пароля!'
+
+# tickets/merge
+  merge: 'Соединить'
+  merge_explanation: "Соединить выбранные заявки. Скопируются все комментарии и создаться новая заявка, соединенные заявки будут закрыты."
+  tickets_have_been_merged: "Заявки соединены."
 
 # tickets/index
   count_tickets:
@@ -55,10 +62,12 @@ ru:
   minutes: 'минут'
   locked_by_user: 'Заявку обрабатывает %{user} в данный момент'
   ticket_id_created_by_at: '#%{id} создал(а) %{user} в %{at}'
+  take_ticket_lock_from_user: 'Взять обработку заявки'
 
 # tickets/show
   add: 'Добавить'
   ticket_by_at: '%{email}, %{at}'
+  ticket_id: 'Номер'
   no_content: 'Нет отписания'
   status: 'Статус'
   assignee: 'Ответственный'
@@ -74,8 +83,10 @@ ru:
   low: 'Низкий'
   unknown: 'Не известно'
   labels: 'Метки'
-  label_name: 'Добавить метку'
-  notification_sent_to: 'Уведомление было направлено по следующим адресам:'
+  label_name: 'Добавить'
+  notification_sent_to: 'Уведомление было направлено следующим:'
+  no_notifications_sent: 'Уведомление не было отправлено'
+  assign_label: 'Добавление метки'
 
 # tickets/_change_priority_form
   change: 'Изменить'
@@ -87,9 +98,17 @@ ru:
 # tickets/_change_assignee_form
   change_assignee: 'Назначить заявку'
   assign: 'Назначить'
+  
+# tickets/_change_subject_form
+  change_subject: 'Изменить тему заявки'
+  str1_has_renamed_ticket_from_str2_to_str3: '"%{str1}" изменил тему заявки с "%{str2}" на "%{str3}".'
+  accept: 'Применить'
 
 # replies/new
   add_reply: 'Добавить ответ'
+  
+# replies/_reply
+  reply_by: 'Ответил'
 
 # replies/_form
   reply: 'Ответ'
@@ -97,6 +116,8 @@ ru:
   send_reply: 'Отправить ответ'
   on_date_author_wrote: '%{date}, %{author} написал:'
   notification_will_be_sent_to: 'Ваше уведомление будет отправлено:'
+  save_as_draft: 'Сохранить в заметку'
+  internal_note: 'Внутренняя заметка'
 
 # ticket_mailer/notify_assigned.text.erb
   ticket_assigned: 'Заявка назначена вам'
@@ -106,6 +127,8 @@ ru:
 
 # ticket_mailer/notify_status_changed.text.erb
   ticket_status_modified: 'Статус заявки изменен'
+  tickets_status_modified: 'Статус заявок изменен'
+  tickets_status_error: 'Ошибка: ни одна заявка не выбрана'
 
 # notification_mailer/new_ticket
   view_new_ticket: 'Посмотреть новую заявку'
@@ -115,7 +138,7 @@ ru:
   view_new_reply: 'Посмотреть новый ответ'
 
 # attachments/_attachment
-  download: 'скачать'
+  download: 'Cкачать'
 
 # users/new
   new_user: 'Новый сотрудник'
@@ -128,9 +151,10 @@ ru:
 
 
 # users/index
-  email: 'Email'
+  email: 'E-mail'
   role: 'Права'
   agent: 'Инженер'
+  agents: 'Инженера'
   customer: 'Сотрудник'
 
 # users/_form
@@ -138,7 +162,7 @@ ru:
   only_fill_in_passwords_when_modifying: 'Если требуется сменить пароль - заполните поля ввода пароля и подтверждения'
   user_is_an_agent: 'Пользователь является инженером'
   receive_new_ticket_notifications: 'Получать уведомления о новых заявках'
-  email_settings: 'Настройки Email'
+  email_settings: 'Настройки E-mail'
   save: 'Сохранить'
   access_control: 'Настройки доступа'
   have_access_to_label: 'Ограничить доступ сотрудника только к следующим меткам'
@@ -173,22 +197,23 @@ ru:
   rule_deleted: 'Правило удалено'
 
 # email_addresses/index
-  new_email_address: Новый исходящий email адрес
-  email_addresses: Email адрес для исходящего письма
+  new_email_address: Новый исходящий e-mail адрес
+  email_addresses: E-mail адрес для исходящего письма
 
 
   activerecord:
     attributes:
       user:
-        email: 'Email'
+        name: 'ФИО'
+        email: 'E-mail'
         password: 'Пароль'
         password_confirmation: 'Подтверждение пароля'
-        signature: 'Подпись для Email'
+        signature: 'Подпись для E-mail'
         remember_me: 'Запомнить меня'
         label_ids: 'Метки'
 
       ticket:
-        from: 'Email'
+        from: 'E-mail'
         subject: 'Тема'
         content: 'Описание'
         status: 'Статус'
@@ -209,9 +234,7 @@ ru:
         action_operation: 'Действие'
         action_operations:
           assign_label: 'Добавить метку'
-          notify_user: 'Отправить уведомнение на Email'
+          notify_user: 'Отправить уведомнение на E-mail'
           change_status: 'Изменить статус'
           change_priority: 'Изменить приоритет'
         action_value: 'Параметры действий'
-
-
